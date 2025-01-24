@@ -1,0 +1,23 @@
+{
+  "name": "wooanime",
+  "version": "1.0.0",
+  "description": "Welcome to **The WooAnime**, your go-to platform for discovering the strangest and most unconventional anime! Explore, rate, and share your thoughts on bizarre series that break the mold of traditional storytelling.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalviumcommunity/S76_Wooanime.git"
+  },
+  "author": "vigneshwaran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalviumcommunity/S76_Wooanime/issues"
+  },
+  "homepage": "https://github.com/kalviumcommunity/S76_Wooanime#readme",
+  "keywords": [],
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
