@@ -38,3 +38,6 @@ Welcome to **The WooAnime**, your go-to platform for discovering the strangest a
 
 
 Enjoy discovering the weirdest anime with **The WooAnime**!
+
+## Deployed link:
+https://s76-wooanime.onrender.com
