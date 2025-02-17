@@ -1,0 +1,20 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/api/update/67af31b183885f5aeca20550
+  body: json
+  auth: none
+}
+
+body:json {
+    {  "AnimeName":"Dragon Ball",
+      "Genre":["C","A","d","f"],
+     "description":"big th",
+      "year":199,
+     "studio":"Tei"
+    }
+}
