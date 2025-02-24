@@ -7,7 +7,7 @@ const create=async(req,res)=>{
     }
     const newItem = new item({AnimeName,Genre,description,year,studio});
     await newItem.save();
-    res.status(201).json(newItem)
+    res.status(201).json(newItem)  
  }catch(error){
     res.status(500).json({message:"Internal server error"})
     console.error(error)
