@@ -41,3 +41,7 @@ Enjoy discovering the weirdest anime with **The WooAnime**!
 
 ## Deployed link: 
 https://s76-wooanime.onrender.com
+
+## The Deployed link:
+
+https://wooanimes76.pages.dev/

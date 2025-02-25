@@ -8,7 +8,7 @@ const Features = () => {
   return (
     <>
       <div
-        className="bg-[url(/featuresbg.jpg)] bg-cover h-screen bg-center "
+        className="bg-[url(/gif.gif)]   h-screen bg-cover bg-fixed "
         ref={features}
       >
         <h1 className="relative top-5 font-black lg:text-[40px] text-9 bg-white flex justify-center">
