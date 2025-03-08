@@ -1,2 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bebas+Neue&display=swap');
 @import "tailwindcss";
+@theme{
+    --font-Abril:"Abril Fatface";
+    --font-bebas:"Bebas Neue";
+}
 

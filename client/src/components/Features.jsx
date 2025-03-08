@@ -35,6 +35,7 @@ const Features = () => {
                 rounded={"10px"}
                 shadow={"dark-lg"}
                 dropShadow={"2xl"}
+                _hover={"hidden"}
               ></Image>
               <Stack align={"center"}>
                 <Text fontSize="2xl" as="b">
