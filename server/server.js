@@ -1,9 +1,10 @@
 const express=require('express');
 const {connectDB,getConnection}=require('./database');
 const app= express();
+const cors = require("cors");
 app.use(express.json());
 require('dotenv').config();
-
+app.use(cors());
 const port =3000;
 app.get('/ping',(req,res)=>{
     res.send('Pong!');
