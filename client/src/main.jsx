@@ -5,6 +5,7 @@ import Loading from './components/Loading.jsx';
 import Card from './components/Card.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import ExplorePage from './Pages/ExplorePage.jsx';
+import Form from './Pages/Form.jsx';
 createRoot(document.getElementById("root")).render(
  
    <BrowserRouter>
@@ -13,6 +14,7 @@ createRoot(document.getElementById("root")).render(
       <Route path="/loading" element={<Loading />}></Route>
       <Route path="/card" element={<Card />}></Route>
       <Route path='/explore' element={<ExplorePage/>}></Route>
+      <Route path='/form' element={<Form/>}></Route>
    </Routes>
       
    </BrowserRouter>
