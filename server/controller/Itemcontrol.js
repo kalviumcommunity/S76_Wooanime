@@ -1,11 +1,18 @@
 const item =require('../model/schema.js')
 const create=async(req,res)=>{
  try{
-    const {AnimeName,Genre,description,year,studio}=req.body;
-    if(!AnimeName || !Genre || !description || !year || !studio){
-        return res.status(400).json({message:"All fileds are required"})
+    const { title, genre, year, description, studio ,imageurl} = req.body;
+    if (!title || !genre || !year ||  !description ||  !studio || !imageurl) {
+      return res.status(400).json({ message: "All fileds are required" });
     }
-    const newItem = new item({AnimeName,Genre,description,year,studio});
+    const newItem = new item({
+      title,
+      genre,
+      year,
+      description,
+      studio,
+      imageurl,
+    });
     await newItem.save();
     res.status(201).json(newItem)  
  }catch(error){

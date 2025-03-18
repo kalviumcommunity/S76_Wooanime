@@ -24,11 +24,12 @@ const ExplorePage = () => {
         {animes.map((item) => (
           <Card
             key={item._id}
-            title={item.AnimeName}
-            genre={item.Genre}
+            title={item.title}
+            genre={item.genre}
             description={item.description}
             year={item.year}
-            studio={item.Studio}
+            studio={item.studio}
+            imageurl={item.imageurl}
           />
         ))}
       </div>
