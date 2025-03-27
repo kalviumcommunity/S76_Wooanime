@@ -2,29 +2,29 @@ const Joi = require("joi");
 const ItemSchema = require("../model/schema.js");
 
 // ✅ Joi Schema for Validation
-// const itemValidationSchema = Joi.object({
-//   title: Joi.string().min(3).max(100).required(),
-//   genre: Joi.array().items(Joi.string()),
-//   // genre: Joi.string().min(3).max(50).required(),
-//   year: Joi.number()
-//     .integer()
-//     .min(1900)
-//     .max(new Date().getFullYear())
-//     .required(),
-//   description: Joi.string().min(10).max(500).required(),
-//   studio: Joi.string().min(3).max(100).required(),
-//   imageurl: Joi.string().uri().required(),
-// });
+const itemValidationSchema = Joi.object({
+  title: Joi.string().min(3).max(100).required(),
+  genre: Joi.array().items(Joi.string()),
+  // genre: Joi.string().min(3).max(50).required(),
+  year: Joi.number()
+    .integer()
+    .min(1900)
+    .max(new Date().getFullYear())
+    .required(),
+  description: Joi.string().min(10).max(500).required(),
+  studio: Joi.string().min(3).max(100).required(),
+  imageurl: Joi.string().uri().required(),
+});
 
 // 🔹 Create a new item with Joi validation
 const create = async (req, res) => {
   try {
     const formData = req.body;
     // formData.genre = formData.genre.split(",");
-    // const { error } = itemValidationSchema.validate(formData);
-    // if (error) {
-    //   return res.status(400).json({ message: error.details[0].message });
-    // }
+    const { error } = itemValidationSchema.validate(formData);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
     const newItem = new ItemSchema(formData);
     await newItem.save();
 
@@ -86,10 +86,10 @@ const update = async (req, res) => {
     const formData = req.body;
     // formData.genre = formData.genre.split(",");
     console.log(formData);
-    // const { error } = itemValidationSchema.validate(formData);
-    // if (error) {
-    //   return res.status(400).json({ message: error.details[0].message });
-    // }
+    const { error } = itemValidationSchema.validate(formData);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
 
     const updatedItem = await ItemSchema.findByIdAndUpdate(id, req.body);
     if (!updatedItem) {
