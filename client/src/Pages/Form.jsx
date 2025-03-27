@@ -1,111 +1,165 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router";
-const Form = () => {
+import { useNavigate, useParams } from "react-router-dom";
+
+function Form() {
+  const { id } = useParams(); // Retrieve id from the URL
+  // console.log(id);
   const navigate = useNavigate();
-  const [form, setFormData] = useState({
+  const isEdit = Boolean(id);
+  const [formData, setFormData] = useState({
     title: "",
-    genre: "",
+    genre: [],
     year: "",
     description: "",
     studio: "",
     imageurl: "",
   });
+  const [message, setMessage] = useState("");
+  // formData.genre = formData.genre.split(",");
+  const fetchFormValues = async () => {
+    console.log("Fetch Form Values: ", id);
+    if (id) {
+      await axios
+        .get(`http://localhost:3000/api/fetch/${id}`)
+        .then((response) => {
+          console.log("Fetched data:", response.data);
+          const data = response.data || response.data;
+          setFormData({
+            title: data.title || "",
+            genre: data.genre || [],
+            year: data.year || "",
+            description: data.description || "",
+            studio: data.studio || "",
+            imageurl: data.imageurl || "",
+          });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    }
+  };
+
+  // Fetch existing data when editing
+  useEffect(() => {
+    fetchFormValues();
+  }, [id]);
 
   const handleChange = (e) => {
-    setFormData({ ...form, [e.target.name]: e.target.value });
+   const  {name,value}=e.target;
+    setFormData((prevData)=>({ ...prevData, [name]: name=="genre"? value.split(",").map((g)=>g.trim()):value }));
   };
+
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-          const response = await axios.post(
-              "http://localhost:3000/api/create",
-              form
-            );
-            console.log(response.data);
-            navigate("/explore");
-    } catch (err) {
-      console.log("Error while Posting", err);
+    e.preventDefault();
+    try {
+      if (isEdit) {
+        await axios.put(`http://localhost:3000/api/update/${id}`, formData);
+        setMessage("Data updated successfully!");
+      } else {
+        await axios.post("http://localhost:3000/api/create", formData);
+        setMessage("Data submitted successfully!");
+      }
+      navigate("/explore"); // Redirect after submission
+    } catch (error) {
+      setMessage("Error submitting data");
+      console.error("Error:", error);
     }
-    // if (!title || !genre || !year || !description || !studio || !imageurl) {
-    //   alert("All fields are required");
-    // } else {
-    //   navigate("/explore");
-    // }
   };
+
   return (
-    <div className="flex justify-center items-center h-screen bg-black text-white font-bold ">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <form
-        action="submit"
-        className="flex flex-col border-2 border-white p-20 rounded-2xl gap-2 "
+        onSubmit={handleSubmit}
+        className="bg-white shadow-lg rounded-xl p-8 w-full max-w-lg"
       >
-        <label htmlFor="title">AnimeName</label>
+        <h2 className="text-3xl font-semibold text-blue-600 text-center mb-6">
+          {id ? "Edit Anime Entry" : "Add New Anime"}
+        </h2>
+
+        <label className="block mb-2 text-gray-700 font-medium">Title</label>
         <input
           type="text"
-          id="title"
           name="title"
+          value={formData.title}
           onChange={handleChange}
-          value={form.title}
-          className="border-1 border-white rounded-xs"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500"
           required
         />
-        <label htmlFor="genre">Genre</label>
+
+        <label className="block mt-4 mb-2 text-gray-700 font-medium">
+          Genre
+        </label>
         <input
           type="text"
-          id="genre"
           name="genre"
+          value={formData.genre.join(", ")}
           onChange={handleChange}
-          value={form.genre}
-          className="border-1 border-white rounded-xs"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500"
           required
         />
-        <label htmlFor="year">Premiered Year</label>
+
+        <label className="block mt-4 mb-2 text-gray-700 font-medium">
+          Premiered Year
+        </label>
         <input
           type="number"
           name="year"
+          value={formData.year}
           onChange={handleChange}
-          value={form.year}
-          className="border-1 border-white rounded-xs"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500"
           required
         />
-        <label htmlFor="description">Description</label>
+
+        <label className="block mt-4 mb-2 text-gray-700 font-medium">
+          Description
+        </label>
         <textarea
           name="description"
-          id="description"
+          value={formData.description}
           onChange={handleChange}
-          value={form.description}
-          className="border-1 border-white rounded-xs"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500"
+          rows="3"
+          required
         ></textarea>
-        <label htmlFor="studio">Studio</label>
+
+        <label className="block mt-4 mb-2 text-gray-700 font-medium">
+          Studio
+        </label>
         <input
           type="text"
-          id="studio"
           name="studio"
+          value={formData.studio}
           onChange={handleChange}
-          value={form.studio}
-          className="border-1 border-white rounded-xs"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500"
           required
         />
-        <label htmlFor="image">ImageUrl</label>
+
+        <label className="block mt-4 mb-2 text-gray-700 font-medium">
+          Image URL
+        </label>
         <input
           type="url"
-          id="image"
           name="imageurl"
+          value={formData.imageurl}
           onChange={handleChange}
-          value={form.imageurl}
-          className="border-1 border-white rounded-xs"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500"
           required
         />
+
         <button
           type="submit"
-          onClick={handleSubmit}
-          className="border-1 border-white rounded-xs bg-blue-500 mt-10"
+          className="mt-6 w-full bg-blue-500 text-white font-semibold py-3 rounded-md hover:bg-blue-600 transition"
         >
-          Submit
+          {id ? "Update" : "Submit"}
         </button>
+
+        {message && (
+          <p className="mt-4 text-center font-medium text-blue-600">
+            {message}
+          </p>
+        )}
       </form>
     </div>
   );
-};
+}
 
 export default Form;
