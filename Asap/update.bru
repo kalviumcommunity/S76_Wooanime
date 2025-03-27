@@ -1,0 +1,28 @@
+meta {
+  name: update
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3000/api/update/67af3635a58dffdd86b309af
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+  
+    "title": "ONe piece",
+    "genre": [
+      "Action",
+      "Adventure",
+      "Martial Arts",
+      "Shonen"
+    ],
+    "year": 1999,
+    "description": "In the Hidden Leaf Village, a mischievous and lonely boy named Naruto Uzumaki dreams of becoming the Hokage while learning the secrets of his past.",
+    "studio": "Toei",
+    "imageurl": "https://resizing.flixster.com/bC6cr0v8kD2Z_c8Kdt4m_J2jJxY=/375x210/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p9162074_i_h11_aa.jpg"
+  }
+}

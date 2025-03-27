@@ -1,6 +1,18 @@
-import React from 'react'
+import { GroupPlaybackControls } from "motion-dom";
+import React from "react";
+import { Navigate, useNavigate } from "react-router";
+const Card = ({
+  id,
+  title,
+  genre,
+  year,
+  description,
+  studio,
+  imageurl,
+  onDelete,
+}) => {
+  const navigate = useNavigate();
 
-const Card = ({title,genre,year,description,studio,imageurl}) => {
   return (
     <>
       {/* <div className="bg-linear-to-b from-[#7B01FD] to-[#FF0000]"> */}
@@ -42,10 +54,24 @@ const Card = ({title,genre,year,description,studio,imageurl}) => {
         <div className=" h-[251px] flex justify-center items-center z-30 absolute mt-[600px] bg-white  rounded-xl w-full">
           <p className="text-[16px] w-[1300px] font-Abril ">{description}</p>
         </div>
+        <div className="mt-4">
+          <button
+            className="bg-green-500 p-2 rounded-lg m-2 cursor-pointer"
+            onClick={() => navigate(`/form/${id}`)}
+          >
+            Update
+          </button>
+          <button
+            className="bg-red-500 p-2 rounded-lg m-2 cursor-pointer"
+            onClick={() => onDelete(id)}
+          >
+            Delete
+          </button>
+        </div>
       </div>
       {/* </div> */}
     </>
   );
-}
+};
 
-export default Card
+export default Card;
