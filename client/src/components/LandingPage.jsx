@@ -1,4 +1,4 @@
-import React, { useRef, useEffect  } from "react";
+import React, { useRef, useEffect } from "react";
 import NavBar from "./NavBar";
 import Features from "./Features";
 import Footer from "./Footer";
@@ -6,14 +6,11 @@ import Footer from "./Footer";
 const LandingPage = () => {
   const featuresRef = useRef(null);
   const footerRef = useRef(null);
-  
+
   return (
     <>
-      <audio autoPlay  className=" absolute  z-20 top-0 left-0" >
-        <source
-          src="/solo_leveling_arise.mp3"
-          type="audio/mp3"
-        />
+      <audio autoPlay className=" absolute  z-20 top-0 left-0">
+        <source src="/solo_leveling_arise.mp3" type="audio/mp3" />
       </audio>
       <div className="relative h-screen bg-fixed">
         <video
