@@ -85,7 +85,7 @@ const Features = () => {
             whileTap={{ scale: 0.5 }}
             className="inline-block"
           >
-            <Link to={"/loading"}>
+            <Link to={"/signup"}>
               <Button
                 variant={"solid"}
                 colorScheme={"yellow"}

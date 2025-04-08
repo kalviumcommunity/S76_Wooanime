@@ -89,9 +89,9 @@ const ExplorePage = () => {
   return (
     <>
       <Navbar />
-      <div className="flex justify-end mt-4">
+      <div className="flex justify-end ">
         <select
-          className="p-2 bg-violet-600 text-white rounded-md shadow-md focus:ring-2 focus:ring-violet-400"
+          className="p-2 m-2 bg-violet-600 text-white rounded-md shadow-md focus:ring-2 focus:ring-violet-400 absolute"
           onChange={handleUserChange}
           value={selectedUser}
         >
