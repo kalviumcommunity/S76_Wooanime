@@ -27,7 +27,7 @@ const Signup = () => {
 
       if (response.ok) {
         alert(result.message);
-        navigate("/main");
+        navigate("/explore");
       } else {
         alert(result.message);
       }
