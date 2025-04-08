@@ -1,6 +1,6 @@
 const Joi = require("joi");
 const ItemSchema = require("../model/schema.js");
-
+const userSchema = require("../model/Users");
 // ✅ Joi Schema for Validation
 const itemValidationSchema = Joi.object({
   title: Joi.string().min(3).max(100).required(),
@@ -11,18 +11,21 @@ const itemValidationSchema = Joi.object({
     .min(1900)
     .max(new Date().getFullYear())
     .required(),
-  description: Joi.string().min(10).max(500).required(),
+  description: Joi.string().min(10).max(5000).required(),
   studio: Joi.string().min(3).max(100).required(),
   imageurl: Joi.string().uri().required(),
+    created_by: Joi.string().required(),
 });
 
 // 🔹 Create a new item with Joi validation
 const create = async (req, res) => {
   try {
     const formData = req.body;
+    console.log("Received formData:", formData);
     // formData.genre = formData.genre.split(",");
     const { error } = itemValidationSchema.validate(formData);
     if (error) {
+      console.log("Validation error:", error.details);
       return res.status(400).json({ message: error.details[0].message });
     }
     const newItem = new ItemSchema(formData);
@@ -127,4 +130,24 @@ const Delete = async (req, res) => {
   }
 };
 
-module.exports = { create, fetch, update, Delete, getById };
+const users= async (req, res) => {
+  try {
+    const users = await userSchema.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const usercreatedby =async (req, res) => {
+  try {
+    const animes = await ItemSchema.find({
+      created_by: req.params.userId,
+    }).populate("created_by");
+    res.json(animes);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { create, fetch, update, Delete, getById,usercreatedby,users };

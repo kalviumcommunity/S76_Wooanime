@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 function Form() {
   const { id } = useParams(); // Retrieve id from the URL
   // console.log(id);
+  const userId = localStorage.getItem("userId");
+
   const navigate = useNavigate();
   const isEdit = Boolean(id);
   const [formData, setFormData] = useState({
@@ -12,6 +14,7 @@ function Form() {
     genre: [],
     year: "",
     description: "",
+    created_by: userId ||"",
     studio: "",
     imageurl: "",
   });
@@ -32,6 +35,7 @@ function Form() {
             description: data.description || "",
             studio: data.studio || "",
             imageurl: data.imageurl || "",
+            created_by:  userId || "",
           });
         })
         .catch((error) => console.error("Error fetching data:", error));
@@ -50,6 +54,13 @@ function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting formData:", formData);
+    console.log(
+      "Created_by:",
+      formData.created_by,
+      "Type:",
+      typeof formData.created_by
+    );
     try {
       if (isEdit) {
         await axios.put(`http://localhost:3000/api/update/${id}`, formData);
@@ -60,8 +71,10 @@ function Form() {
       }
       navigate("/explore"); // Redirect after submission
     } catch (error) {
-      setMessage("Error submitting data");
-      console.error("Error:", error);
+      const errorMessage =
+        error.response?.data?.message || "Error submitting data";
+      setMessage(errorMessage);
+      console.error("Error:", errorMessage);
     }
   };
 

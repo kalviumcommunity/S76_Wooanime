@@ -6,6 +6,7 @@
   "dependencies": {
     "aria-hidden": "^1.2.4",
     "babel-plugin-macros": "^3.1.0",
+    "bcryptjs": "^3.0.2",
     "callsites": "^3.1.0",
     "color2k": "^2.0.3",
     "convert-source-map": "^1.9.0",
