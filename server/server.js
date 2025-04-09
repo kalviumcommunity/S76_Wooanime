@@ -9,6 +9,12 @@ const port =3000;
 app.get('/ping',(req,res)=>{
     res.send('Pong!');
 })
+const db = require("./db");
+
+db.getConnection()
+  .then(() => console.log("✅ MySQL connected!"))
+  .catch((err) => console.error("❌ MySQL connection failed:", err));
+
 connectDB();
 app.get('/',(req,res)=>{
     console.log("Connected");

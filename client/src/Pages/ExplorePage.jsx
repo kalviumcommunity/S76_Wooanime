@@ -42,7 +42,7 @@ const ExplorePage = () => {
       try {
         await axios.delete(`http://localhost:3000/api/delete/${id}`);
 
-        setAnimes(animes.filter((item) => item._id !== id));
+        setAnimes(animes.filter((item) => item.id !== id));
         alert("Anime deleted successfully!");
       } catch (err) {
         console.error(
@@ -97,7 +97,7 @@ const ExplorePage = () => {
         >
           <option value="">Select User</option>
           {users.map((user) => (
-            <option key={user._id} value={user._id}>
+            <option key={user.id} value={user.id}>
               {user.username}
             </option>
           ))}
@@ -107,8 +107,8 @@ const ExplorePage = () => {
         <img src="logo.png" alt="Logo" className="mx-auto mt-11" />
         {animes.map((item) => (
           <Card
-            key={item._id}
-            id={item._id}
+            key={item.id}
+            id={item.id}
             title={item.title}
             genre={item.genre}
             description={item.description}

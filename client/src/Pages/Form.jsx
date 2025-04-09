@@ -5,8 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 function Form() {
   const { id } = useParams(); // Retrieve id from the URL
   // console.log(id);
-  const userId = localStorage.getItem("userId");
-
+  const userId = parseInt(localStorage.getItem("userId"));
+ console.log(userId);
   const navigate = useNavigate();
   const isEdit = Boolean(id);
   const [formData, setFormData] = useState({
