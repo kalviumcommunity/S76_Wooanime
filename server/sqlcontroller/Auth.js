@@ -50,16 +50,22 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    res
-      .status(200)
-      .json({
-        message: "Login successful",
-        user: { id: user.id, username: user.username },
-      });
+    res.status(200).json({
+      message: "Login successful",
+      user: { id: user.id, username: user.username },
+    });
+    res.cookie("username", user.name, {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.NODE_ENV === "production",
+    });
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
-
-module.exports = { signup, login };
+const logout = async (req, res) => {
+  res.clearcookie("username");
+  res.status(200).json({ message: "Logged out Successfully" });
+};
+module.exports = { signup, login, logout };
