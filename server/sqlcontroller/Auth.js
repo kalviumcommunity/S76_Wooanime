@@ -49,15 +49,15 @@ const login = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
-
-    res.status(200).json({
-      message: "Login successful",
-      user: { id: user.id, username: user.username },
-    });
+    
     res.cookie("username", user.name, {
       httpOnly: true,
       sameSite: "strict",
       secure: process.NODE_ENV === "production",
+    });
+    res.status(200).json({
+      message: "Login successful",
+      user: { id: user.id, username: user.username },
     });
   } catch (error) {
     console.error("Login error:", error);
@@ -65,7 +65,7 @@ const login = async (req, res) => {
   }
 };
 const logout = async (req, res) => {
-  res.clearcookie("username");
+  res.clearCookie("username");
   res.status(200).json({ message: "Logged out Successfully" });
 };
 module.exports = { signup, login, logout };
