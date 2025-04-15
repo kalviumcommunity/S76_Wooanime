@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("../model/Users");
-
+const cookieParser=require('cookie-parser')
 
 // Signup Route
 const signup =  async (req, res) => {
@@ -38,10 +38,18 @@ const login = async (req, res) => {
     }
 
     res.status(200).json({ message: "Login successful" });
+    res.cookie("username",user.name,{
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.NODE_ENV==="production",
+    })
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
-
-module.exports = { signup, login };
+const logout=async(req,res)=>{
+  res.clearcookie("username")
+  res.status(200).json({message:"Logged out Successfully"})
+}
+module.exports = { signup, login,logout };
