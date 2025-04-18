@@ -33,6 +33,7 @@
     "js-tokens": "^4.0.0",
     "jsesc": "^3.1.0",
     "json-parse-even-better-errors": "^2.3.1",
+    "jsonwebtoken": "^9.0.2",
     "lines-and-columns": "^1.2.4",
     "lodash.mergewith": "^4.6.2",
     "loose-envify": "^1.4.0",
