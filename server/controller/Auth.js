@@ -37,19 +37,19 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    res.status(200).json({ message: "Login successful" });
     res.cookie("username",user.name,{
       httpOnly: true,
       sameSite: "strict",
       secure: process.NODE_ENV==="production",
     })
+    res.status(200).json({ message: "Login successful" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
 const logout=async(req,res)=>{
-  res.clearcookie("username")
+  res.clearCookie("username")
   res.status(200).json({message:"Logged out Successfully"})
 }
 module.exports = { signup, login,logout };
